@@ -2,6 +2,8 @@
 
 [中学数学の練習プリント（小問集合）を作るWeb App](https://nettle-generator.herokuapp.com/)のための練習問題を作るモジュール。元々は一緒にしていたのを分離した。
 
+作られる問題についての内容については[Wep Appの解説ページ](https://nettle-generator.herokuapp.com/spec)にまとめたのでそちらを参考にされたい。こちらはコード関係の話をまとめておく。なお、解答の計算ミス・バグレポートは全部Git経由で送ってください。
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -18,15 +20,13 @@ Or install it yourself as:
 
     $ gem install olivine
 
-## Usage
-
-詳しい作りについては[Wep Appの解説ページ](https://nettle-generator.herokuapp.com/spec)にまとめたのでそちらを参考にされたい。バグレポートはGit経由で。
+## Note
 
 以下、今後の改良のための覚え書き
 
-- exts以下に```Numeric```その他標準ライブラリの独自拡張が入っている。```Integer.prime_to?(other)```みたいなよく使うあると便利なやつを突っ込んだもの。競合に注意。
+- exts以下に`Numeric`{:.ruby}その他標準ライブラリの独自拡張が入っている。`Integer#prime_to?(other)`{:.ruby}とか`Vector#rotate(radian)`{:.ruby}みたいなよく使うあると便利なやつを突っ込んだもの。競合に注意。
 - SVGは **y軸が上下逆（正が下向き）**
-- ```Generator::Base#generate```が全ての大元になるメソッド。ここから問と答えが生えてくるようにすればOK。
+- `Generator::Base#generate`{:.ruby}が全ての大元になるメソッド。ここから問と答が生えてくるようにすればOK。
 
   で、その中身が
   ```ruby
@@ -37,8 +37,8 @@ Or install it yourself as:
     end
   end
   ```
-  となっているので、この形になるように```def expression```して```yield```するなり```&block```するなりすればOK。ジェネレータの形になっているのは、元々herokuでPostgreSQLに一括挿入するにあたり[```activerecord-import```](https://github.com/zdennis/activerecord-import)を使おうとしていたのが、エラーを吐いて止まってしまうので、仕方なく一件一件```INSERT```するように変えたため。
+  となっているので、この形になるように`def expression`{:.ruby}して`yield`{:.ruby}するなり`&block`{:.ruby}するなりすればOK。ジェネレータの形になっているのは、元々herokuでPostgreSQLに一括挿入するにあたり[`activerecord-import`](https://github.com/zdennis/activerecord-import)を使おうとしていたのが、エラーを吐いて止まってしまうので、仕方なく一件一件`INSERT`{.SQL}するように変えたため。また、メソッド名が`expression`{:.ruby}なのは、当初計算プリントとして設計したので、expressionとsolution/answerでつけてたのの名残り。
 - 本当はLaTeXでPDFを作成できるようにしたかったが、herokuにデプロイしたら300MB以上もくう上にいろいろなパッケージが足りなかったので諦めた。そのうち別のサーバに移す機会がやりたい。ただ、wrapfigureの問題があるのであまりきれいにプリントできないかもしれない。数式だけ（図表なし）ならなんとかなるかも。
 - tikzを使うならSVGを書き換えるか、あるいは共用のILみたいなのを出力すべきかも。やろうと思ったがLaTeXを使わなくなったのでやめた。
-- 枝問ありのやつも実装してみたい。でも本来のコンセプト（小問集合の練習）から外れすぎる？　やるならlong-olivineとかにして別立てかな？
+- 枝問ありのやつも実装してみたい。関数とかもうちょっと立ち入った図形の問題とか。でも本来のコンセプト（小問集合の練習）から外れすぎる？　やるなら別立てかな？
 - 全体的にクラスの分け方があんまりきれいじゃないかも。
