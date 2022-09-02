@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 require_relative "olivine/version"
-require 'victor'
-require 'matrix'
-require 'pathname'
-require 'prime'
-require 'active_support'
-require 'active_support/core_ext/class/subclasses'
-require 'bigdecimal/util'
+require "victor"
+require "matrix"
+require "pathname"
+require "prime"
+require "active_support"
+require "active_support/core_ext/class/subclasses"
+require "bigdecimal/util"
 
 module Olivine
   class Error < StandardError; end
+
   # Your code goes here...
   module Generator
     # Generator module
@@ -28,6 +29,6 @@ unless defined?(require_dir)
   end
 end
 
-require_dir 'olivine/exts'
-require_relative 'olivine/path_finder.rb'
-require_relative 'olivine/generator.rb'
+require_dir "olivine/exts"
+require_relative "olivine/path_finder"
+require_relative "olivine/generator"

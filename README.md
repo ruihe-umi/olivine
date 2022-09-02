@@ -1,8 +1,6 @@
 # Olivine
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/olivine`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+[中学数学の練習プリント（小問集合）を作るWeb App](https://nettle-generator.herokuapp.com/)のための練習問題を作るモジュール。元々は一緒にしていたのを分離した。
 
 ## Installation
 
@@ -22,18 +20,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+詳しい作りについては[Wep Appの解説ページ](https://nettle-generator.herokuapp.com/spec)にまとめたのでそちらを参考にされたい。バグレポートはGit経由で。
 
-## Development
+以下、今後の改良のための覚え書き
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake ` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+- exts以下に```Numeric```その他標準ライブラリの独自拡張が入っている。```Integer.prime_to?(other)```みたいなよく使うあると便利なやつを突っ込んだもの。競合に注意。
+- SVGは**$y$軸が上下逆（正が下向き）**
+- ```Generator::Base#generate```が全ての大元になるメソッド。ここから問と答えが生えてくるようにすればOK。
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/olivine.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+  で、その中身が
+  ```ruby
+  def generate
+    return to_enum(:generate) unless block_given?
+    expression do |quiz, answer|
+      yield format_quiz(quiz), format_answer(answer)
+    end
+  end
+  ```
+  となっているので、この形になるように```def expression```して```yield```するなり```&block```するなりすればOK。ジェネレータの形になっているのは、元々herokuでPostgreSQLに一括挿入するにあたり[```activerecord-import```](https://github.com/zdennis/activerecord-import)を使おうとしていたのが、エラーを吐いて止まってしまうので、仕方なく一件一件```INSERT```するように変えたため。
+- 本当は$\\LaTeX$でPDFを作成できるようにしたかったが、herokuにデプロイしたら300MB以上もくう上にいろいろなパッケージが足りなかったので諦めた。そのうち別のサーバに移す機会がやりたい。ただ、wrapfigureの問題があるのであまりきれいにプリントできないかもしれない。数式だけ（図表なし）ならなんとかなるかも。
+- tikzを使うならSVGを書き換えるか、あるいは共用のILみたいなのを出力すべきかも。やろうと思ったが$\\LaTeX$$を使わなくなったのでやめた。
+- 枝問ありのやつも実装してみたい。でも本来のコンセプト（小問集合の練習）から外れすぎる？　やるならlong-olivineとかにして別立てかな？
+- 全体的にクラスの分け方があんまりきれいじゃないかも。
