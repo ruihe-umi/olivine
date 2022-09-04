@@ -23,10 +23,6 @@ module Olivine::Generator
       end
     end
 
-    def mtime
-      File.mtime(method(:expression).source_location[0])
-    end
-
     protected
 
     # 問題文を整形する。単元ごとにオーバーライドして使う。
@@ -86,6 +82,7 @@ module Olivine::Generator
         return label, code
       end
     end
+
   end
 end
 

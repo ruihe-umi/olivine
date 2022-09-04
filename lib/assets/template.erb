@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="../lib/assets/tex.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="../lib/assets/tex.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title><%=klass.name%></title>
+  </head>
+  <body>
+    <h1><%=klass.label%></h1>
+    <table class="summary">
+      <tr>
+        <td>unit code</td>
+        <td><%=klass.code%></td>
+      </tr>
+      <tr>
+        <td>unit label</td>
+        <td><%=klass.unit[0]%></td>
+      </tr>
+      <tr>
+        <td>class</td>
+        <td><%=klass.name.match(/\w+::\w+$/)[0]%></td>
+      </tr>
+      <tr>
+        <td>generated size</td>
+        <td><%=quizzes.size%></td>
+      </tr>
+      <tr>
+        <td>unique size</td>
+        <td><%=quizzes.uniq.size%></td>
+      </tr>
+    </table>
+    <ol class="result">
+      <%- quizzes.sample(100).each do |q, a| -%>
+      <li class="result-item">
+        <div class="quiz"><%=Kramdown::Document.new(q.gsub(/\[\[(\w+)\]\]/) {|c| %(<span class="#{$1 =="ref" ? "figref" : $1}"></span>) }).to_html%></div>
+        <div class="answer"><%=a%></div>
+      <%-end-%>
+    </ol>
+  </body>
+</html>

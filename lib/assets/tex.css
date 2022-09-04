@@ -1,0 +1,278 @@
+@charset "UTF-8";
+
+figure {
+  float: right;
+  margin: 0 1rem;
+}
+
+.frequency table {
+  border-collapse: collapse;
+  border: solid 0.25mm black;
+  line-height: 1rem;
+}
+.frequency table td, .frequency table th {
+  border-right: solid 0.25mm black;
+}
+.frequency table tr:last-of-type th, .frequency table tr:last-of-type td {
+  font-weight: normal;
+  font-size: normal;
+  border-bottom: solid 0.25mm black;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.frequency table tbody:first-of-type tr:first-of-type,
+.frequency table tbody:last-of-type td:first-of-type {
+  font-size: 0.8rem;
+}
+
+svg {
+  display: block;
+  fill: none;
+  font-size: 0.75rem;
+  overflow: visible;
+  stroke: black;
+  stroke-width: 0.25mm;
+}
+svg foreignObject {
+  overflow: visible;
+}
+svg foreignObject.loaded {
+  line-height: 1em;
+  text-align: center;
+}
+svg foreignObject.label-length {
+  line-height: 1.333333em;
+}
+svg foreignObject span {
+  line-height: 0;
+}
+svg.label span {
+  padding: 0.2rem;
+}
+svg text {
+  dominant-baseline: central;
+  fill: black;
+  stroke: none;
+  text-anchor: middle;
+}
+svg .dot {
+  fill: black;
+  stroke: none;
+}
+svg .dashed {
+  stroke-dasharray: 0.4mm 0.4mm;
+}
+svg .helpline {
+  stroke-width: 0.12mm;
+}
+svg .thick {
+  stroke-width: 0.4mm;
+}
+svg .painted {
+  fill: #dcdcdc;
+}
+svg .none {
+  stroke: none;
+}
+svg .MathJax {
+  margin: 0;
+}
+
+.MathJax {
+  margin: 0 0.25rem 0 0.25rem;
+}
+
+.framed {
+  border: solid 0.25mm black;
+  display: table-cell;
+  padding: 0.25rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.prob-list {
+  font-size: 1rem;
+}
+
+.angle {
+  /* visibility: hidden; */
+  color: dodgerblue;
+  stroke: dodgerblue;
+}
+
+.angle.to-find {
+  color: orange;
+  stroke: orange;
+  fill: orange;
+}
+
+.visible {
+  visibility: visible !important;
+}
+
+.blank {
+  border: black solid 0.25mm;
+  display: inline-block;
+  height: 1rem;
+  margin: 0 0.25rem;
+  vertical-align: text-bottom;
+  width: 2.5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #F5F5F5;
+  font-size: 16px;
+  font-family: "MigMix 1p", "Latin Modern Math", "Century Schoolbook", "Times New Roman", "游明朝", "yumin", sans-serif;
+  line-height: 28px;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+
+/* .MJX-TEX, .TEX-I {
+  font-family: "MigMix 1p", "Latin Modern Math", "Century Schoolbook", "Times New Roman", "游明朝", "yumin", sans-serif !important;
+}
+.TEX-I {
+  font-style: italic;
+} */
+
+p {
+  padding-bottom: .5rem;
+}
+
+svg {
+  fill: none;
+  overflow: visible;
+  stroke: black;
+  stroke-width: 0.25mm;
+}
+svg text {
+  fill: black;
+  stroke: none;
+  dominant-baseline: central;
+  text-anchor: middle;
+}
+svg .anchor-west {
+  text-anchor: start;
+}
+svg .thin {
+  stroke-width: 0.12mm;
+}
+svg .thick {
+  stroke-width: 0.4mm;
+}
+svg .painted {
+  fill: #cdcdcd;
+}
+svg .striped {
+  fill: url("#striped");
+}
+svg .dashed {
+  stroke-dasharray: 0.8mm;
+}
+svg foreignObject {
+  overflow: visible;
+  stroke: black;
+}
+svg foreignObject .math-translate {
+  display: block;
+  transform: translate(-50%, -50%);
+}
+
+.result {
+  max-width: 768px;
+}
+
+.result-item {
+  clear: both;
+  display: flex;
+}
+
+.quiz {
+  width: 80%;
+}
+
+.answer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 20%;
+}
+
+.sans, .quiz .figref {
+  font-family: "Segoe UI", "Arial", "Roboto", "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro", "Yu Gothic", "Meiryo", sans-serif;
+}
+
+.figref::before {
+  content: "図"
+}
+
+@media screen {
+  .flex {
+    display: flex;
+    flex-direction: row;
+    max-width: 768px;
+    margin-right: auto;
+  }
+  .flex .col-l {
+    display: flex;
+    align-items: center;
+    width: 75%;
+  }
+  .flex .col-r {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+  }
+
+  .page {
+    box-sizing: border-box;
+    border: solid dodgerblue;
+    margin-bottom: 1rem;
+    padding-top: 297mm;
+    position: relative;
+    width: 210mm;
+    zoom: var(--preview-zoom);
+  }
+  .page .wrapper {
+    left: 0;
+    padding: 15mm;
+    position: absolute;
+    top: 0;
+  }
+}
+@media screen and (min-width: 1024px) {
+  main {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .page {
+    margin-right: 1rem;
+  }
+}
+@media print {
+  .page {
+    -moz-column-break-inside: avoid;
+         break-inside: avoid;
+  }
+
+  .wrapper {
+    padding: 15mm 15mm 15mm 15mm;
+  }
+
+  header, .no-print {
+    display: none;
+  }
+
+  @page {
+    margin: 0;
+  }
+}

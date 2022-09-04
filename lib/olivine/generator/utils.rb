@@ -26,16 +26,15 @@ module Olivine::Generator
       (min..max).filter { |i| i.nonzero? }
     end
 
-    def well_behaved_angle(min: 0, max: 360)
+    def well_behaved_angle(min: 30, max: 180)
       return to_enum(:well_behaved_angle, min: min, max: max) unless block_given?
 
-      360
-        .divisors
-        .select { |i| i**2 < 360 }
-        .each do |den|
-        1.upto(den - 1) do |num|
-          a = 360 / den * num
-          yield a if num.prime_to?(den) && a >= min && a <= max
+      1.upto(18) do |den|
+        next if 360.modulo(den).nonzero?
+        num = 1
+        until (a = 360 / den * num) > max
+          yield a if num.prime_to?(den) && a >= min
+          num += 1
         end
       end
     end
