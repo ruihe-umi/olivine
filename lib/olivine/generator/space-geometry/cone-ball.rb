@@ -1,9 +1,7 @@
-module Olivine::Generator::PlaneGeometry
+module Olivine::Generator::SpaceGeometry
   class ConeBall < Base
-    set_code 400_120
+    set_code 120
     set_label '円錐・円柱・球'
-
-    
 
     MAX_LENGTH = 10
     SLANT_WIDTH = 20
@@ -33,7 +31,7 @@ module Olivine::Generator::PlaneGeometry
             path d: "M #{rd} #{ht} A #{rd} #{SLANT_WIDTH} 0 0 0 #{-rd} #{ht}", class: 'dashed helpline'
             path d: "M #{-rd} #{ht} A #{rd} #{SLANT_WIDTH} 0 0 0 #{rd} #{ht}", class: 'thick'
             path d: "M #{-rd} 0 v #{ht} M #{rd} 0 v #{ht}", class: 'thick'
-            angle Vector[rd, ht], Vector[0, ht], Vector[0, 0]
+            angle Vector[rd, ht], Vector[0, ht], Vector[0, 0], class: 'visible'
             dot Vector[0, 0]
             dot Vector[0, ht]
           end.figure
@@ -60,7 +58,7 @@ module Olivine::Generator::PlaneGeometry
         end.figure
 
         quiz = "#{fig}\n\n半径$#{radius}\\textrm{cm}$の球の体積を求めよ。"
-        vol = "#{(4 * radius**3).quo(3)}\\pi\\textrm{cm}^3"
+        vol = "#{(4 * radius**3).quo(3).to_tex}\\pi\\textrm{cm}^3"
         yield quiz, vol
 
         quiz = "#{fig}\n\n半径$#{radius}\\textrm{cm}$の球の表面積を求めよ。"
@@ -173,7 +171,7 @@ module Olivine::Generator::PlaneGeometry
 
         length apex, right, "$#{s}\\textrm{cm}$", label_sep: 16 if s
 
-        angle right, origin, apex, R: true if h
+        angle right, origin, apex, R: true, class: 'visible' if h
         dot origin unless h
 
         path d: "M #{pot_r.join} A #{rd} #{SLANT_WIDTH} 0 0 0 #{pot_l.join}", class: 'dashed helpline'

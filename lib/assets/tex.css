@@ -108,6 +108,8 @@ svg .MathJax {
 
 .visible {
   visibility: visible !important;
+  stroke: black;
+  color: black;
 }
 
 .blank {
