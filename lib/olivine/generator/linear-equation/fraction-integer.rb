@@ -1,16 +1,17 @@
 module Olivine::Generator::LinearEquation
-  # 分数係数型
+  # 分数係数型2
+  # いまいちうまくいかないのでオミット
   class FractionInteger < Base
     set_code 210
     set_label '分数左辺'
     set_note '分数＋分数＝定数'
 
-    
+
 
     MAX_INT = 9
     MAX_ANSWER = 12
 
-    def expression
+    def _expression
       denominator do |a, d|
         numerator do |b, c|
           next if b.negative?

@@ -3,8 +3,6 @@ module Olivine::Generator::SimultaneousEquation
     set_code 200
     set_label '代入法'
 
-    
-
     def expression
       coefficient do |x1, y1|
         DIGIT.each do |x2|

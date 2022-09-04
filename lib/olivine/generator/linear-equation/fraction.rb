@@ -5,8 +5,6 @@ module Olivine::Generator::LinearEquation
     set_label '分数両辺'
     set_note '分数＝分数'
 
-    
-
     MAX_INT = 9
     MAX_ANSWER = 12
 

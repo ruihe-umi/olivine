@@ -3,31 +3,27 @@ module Olivine::Generator::SimultaneousEquation
     set_code 100
     set_label '消去法'
 
-    
-
     def expression
-      coefficient.combination(2) do |co|
-        x1, y1 = co[0]
-        x2, y2 = co[1]
-        next if x1 * y2 == x2 * y1
-        answer do |x, y|
-          c1 = x1 * x + y1 * y
-          c2 = x2 * x + y2 * y
-          next if c1 == c2 || c1.abs > 9 || c2.abs > 9
-
-          exp = [
-            "#{x1}x+#{y1}y=#{c1}",
-            "#{x2}x+#{y2}y=#{c2}"
-          ]
-
-          yield exp, [x, y]
+      answer do |x, y|
+        DIGIT
+        .permutation(2) do |b1, b2|
+          a1 = (y - b1).quo(x)
+          a2 = (y - b2).quo(x)
+          yield [equation(a1, b1), equation(a2, b2)], [x, y] unless a1 == a2 || [a1, a2].any?(&:zero?)
         end
       end
     end
 
+    def equation(a, b)
+      if a.positive?
+        format('%dx+%dy=%d', a.numerator, -a.denominator, b * -a.denominator)
+      else
+        format('%dx+%dy=%d', -a.numerator, a.denominator, b * a.denominator)
+      end
+    end
+
     def answer(&block)
-      (-9..9).to_a
-             .repeated_permutation(2, &block)
+      DIGIT.repeated_permutation(2, &block)
     end
 
     def coefficient
