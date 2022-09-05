@@ -23,7 +23,7 @@
     end
   end
   ```
-  となっているので、この形になるように`def expression`して`yield`するなり`&block`するなりすればOK。ジェネレータの形になっているのは、元々herokuでPostgreSQLに一括挿入するにあたり[`activerecord-import`](https://github.com/zdennis/activerecord-import)を使おうとしていたのが、エラーを吐いて止まってしまうので、仕方なく一件一件`INSERT`{.SQL}するように変えたため。また、メソッド名が`expression`なのは、当初計算プリントとして設計したので、expressionとsolution/answerでつけてたのの名残り。
+  となっているので、この形になるように`def expression`して`yield`するなり`&block`するなりすればOK。ジェネレータの形になっているのは、元々herokuでPostgreSQLに一括挿入するにあたり[`activerecord-import`](https://github.com/zdennis/activerecord-import)を使おうとしていたのが、エラーを吐いて止まってしまうので、仕方なく一件一件`INSERT`するように変えたため。また、メソッド名が`expression`なのは、当初計算プリントとして設計したので、expressionとsolution/answerでつけてたのの名残り。
 - 本当はLaTeXでPDFを作成できるようにしたかったが、herokuにデプロイしたら300MB以上もくう上にいろいろなパッケージが足りなかったので諦めた。そのうち別のサーバに移す機会が得られたら取り組みたい。ただ、wrapfigureの問題があるのであまりきれいにプリントできないかもしれない。数式だけ（図表なし）ならなんとかなるかも。
 - tikzを使うならSVGを書き換えるか、あるいは共用のILみたいなのを出力すべきかも。やろうと思ったがLaTeXを使わなくなったのでやめた。
 - 枝問ありのやつも実装してみたい。関数とかもうちょっと立ち入った図形の問題とか。でも本来のコンセプト（小問集合の練習）から外れすぎる？　やるなら別立てかな？

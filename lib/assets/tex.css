@@ -201,6 +201,11 @@ svg foreignObject .math-translate {
   width: 80%;
 }
 
+.quiz p {
+  margin-bottom: 0;
+  text-indent: 1rem;
+}
+
 .answer {
   align-items: center;
   display: flex;

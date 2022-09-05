@@ -119,14 +119,20 @@ module Olivine::Generator::PlaneGeometry
       @angles.size.times do |i|
         target, list1, list2 = @angles.rotate(i)
         list1.product(list2) do |a, b|
-          center = target.first
+          unless a[1] == b[1]
+            center = target.first
+            angles = angles(a, b)
+            cond = angles.map { |e| "$#{e}=#{angle_size(e)}^\\circ$" }.join("，")
+            4.step(10, 2) do |l|
+              yield "#{figure(angles)}\n\n[[ref]]は，長さ$#{l}\\rm cm$の線分$\\rm AB$を直径とする半円$\\rm O$において，$\\arc{AB}$上に点$\\rm C$を取り，$\\arc{BC}$上に点$\\rm D$を取ったものである。#{cond}のとき，$\\arc{#{center.sub(/(.).(.)/, '\\1\\2')}}$の長さを求めよ。#{PROVIDED}", "#{(l * angle_size(center)).quo(360).to_tex}\\pi\\rm cm"
+            end
+          end
+
           target.each do |c|
             next if [a, b, c].map { |e| e[1] }.uniq.size < 3
-
             angles = angles(a, b, [c, "$x$"])
             cond = angles[0..1].map { |e| "$#{e}=#{angle_size(e)}^\\circ$" }.join("，")
-            yield "#{figure(angles)}\n\n[[ref]]は，線分$\\rm AB$を直径とする半円$\\mathrm O$において，$\\arc{AB}$上に点$\\mathrm C$を取り，$\\arc{BC}$上に点$\\mathrm D$を取ったものである。#{cond}のとき，$#{angles[2]}$の大きさを求めよ。", "#{angle_size(angles.last)}^\\circ"
-            yield "#{figure(angles[0..1])}\n\n[[ref]]は，長さ$10\\rm cm$の線分$\\rm AB$を直径とする半円$\\mathrm O$において，$\\arc{AB}$上に点$\\mathrm C$を取り，$\\arc{BC}$上に点$\\mathrm D$を取ったものである。#{cond}のとき，$\\arc{#{center.sub(/(.).(.)/, '\\1\\2')}}$の長さを求めよ。#{PROVIDED}", "#{(10 * angle_size(center)).quo(360).to_tex}\\pi\\rm cm"
+            yield "#{figure(angles)}\n\n[[ref]]は，線分$\\rm AB$を直径とする半円$\\rm O$において，$\\arc{AB}$上に点$\\rm C$を取り，$\\arc{BC}$上に点$\\rm D$を取ったものである。#{cond}のとき，$#{angles[2]}$の大きさを求めよ。", "#{angle_size(angles.last)}^\\circ"
           end
         end
       end
